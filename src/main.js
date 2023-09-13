@@ -6,12 +6,14 @@ import App from "./App.vue";
 //PAGES
 import HomePage from "./pages/Home.vue";
 import StocksPage from "./pages/Stocks.vue";
+import PortfolioPage from "./pages/Portfolio.vue";
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
     { path: "/", component: HomePage },
     { path: "/stocks", component: StocksPage },
+    { path: "/portfolio", component: PortfolioPage },
   ],
 });
 const store = createStore({
