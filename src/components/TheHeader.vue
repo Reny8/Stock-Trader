@@ -26,7 +26,7 @@ export default {
   props: ["title"],
   computed: {
     funds() {
-      return numeral(this.$store.state.funds).format('0,0');
+      return numeral(this.$store.state.funds).format("0,0");
     },
   },
 };
@@ -35,7 +35,7 @@ export default {
 <style scoped>
 header {
   color: #5c5c5c;
-  background-color: #dfdfdfdc;
+  background-color: #f5f5f5;
   display: flex;
   flex-direction: row;
   padding: 0.5rem 1.5rem;
@@ -69,7 +69,8 @@ a:not(a:has(h1)):hover {
 }
 .router-link-active:not(.router-link-active:has(h1)) {
   opacity: 1;
-  color: #5e0101;
+  color: #527650;
+  font-weight: 600
 }
 select {
   opacity: 0.8;
@@ -77,26 +78,29 @@ select {
 select:focus {
   outline: none;
 }
-select:hover, button:hover {
+select:hover,
+button:hover {
   cursor: pointer;
 }
 p {
   font-weight: 600;
   margin: 0rem;
 }
-button, select {
+button,
+select {
   background: transparent;
   border: none;
   border-radius: 2px;
-  font-size: 15px
+  font-size: 15px;
 }
 div.second {
-  align-items: stretch
+  align-items: stretch;
 }
 div.second > * {
   padding: 0.5rem 1rem;
 }
 button:active {
-  background: rgba(151, 151, 151, 0.687)
+  background: rgba(151, 151, 151, 0.687);
+  color: white;
 }
 </style>
