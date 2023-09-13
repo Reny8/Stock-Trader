@@ -1,14 +1,19 @@
 <template>
-  <TheHeader title="Vue Project" />
+  <TheHeader title="Stock Trader" />
   <router-view></router-view>
 </template>
 
 <script>
-import TheHeader from './components/TheHeader.vue';
+import TheHeader from "./components/TheHeader.vue";
 export default {
-  name: 'App',
+  name: "App",
   components: {
     TheHeader,
+  },
+  data() {
+    return {
+      funds: 10000,
+    };
   },
 };
 </script>
@@ -27,5 +32,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+h1 {
+  font-size: 25px;
+}
+h1, h3 {
+  text-shadow: 0.5px 0.5px 0.5px black;
+  font-weight: 300
 }
 </style>
