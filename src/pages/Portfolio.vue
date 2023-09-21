@@ -1,16 +1,13 @@
 <template>
-  <div class="container">
-    <div v-if="portfolio.length">
+  <div>
+    <div v-if="portfolio.length" class="container">
       <div class="card" v-for="item in portfolio" :key="item.id">
         <div class="heading">
           <h3>{{ item.name }}</h3>
           <p>( Price: ${{ item.price }} | Quantity: ${{ item.quantity }} )</p>
         </div>
         <div class="card-body">
-          <input
-            :value="item.quantity ? item.quantity : ''"
-            placeholder="Quantity"
-          />
+          <input placeholder="Quantity" />
           <button>SELL</button>
         </div>
       </div>
@@ -32,10 +29,10 @@ export default {
 </script>
 <style scoped>
 .no-items {
-    border: solid 0.5px #a0a0a0;
-    border-radius: 2px;
-    padding: 2rem;
-    width: 100%
+  padding: 0.5rem 0rem;
+  margin: 2rem;
+  border: solid 0.5px #a0a0a0;
+  border-radius: 2px;
 }
 .card .heading {
   background-color: #daeef7;

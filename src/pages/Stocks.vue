@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="card" v-for="stock in stocks" :key="stock.id">
+    <div class="card" v-for="(stock, index) in stocks" :key="stock.id">
       <div class="heading">
         <h3>{{ stock.name }}</h3>
         <p>( Price: ${{ stock.price }} )</p>
@@ -8,8 +8,11 @@
       <div class="card-body">
         <input
           placeholder="Quantity"
+          @input="updateQuantityInput"
+          v-model="inputValue[index]"
+          type="number"
         />
-        <button>BUY</button>
+        <button @click="buyStock(stock, index)" :disabled="stock.noprice">BUY</button>
       </div>
     </div>
   </div>
@@ -17,12 +20,28 @@
 <script>
 export default {
   name: "StocksPage",
+  data() {
+    return {
+      inputValue: [null, null, null, null],
+    };
+  },
   computed: {
     stocks() {
       return this.$store.state.stocks;
     },
+    quantityInput() {
+      return this.$store.state.quantityInput;
+    },
   },
-  methods: {},
+  methods: {
+    buyStock(stock, index) {
+      this.$store.commit("buyStock", stock);
+      this.inputValue[index] = null;
+    },
+    updateQuantityInput(event) {
+      this.$store.commit("updateQuantity", event.target.value);
+    },
+  },
 };
 </script>
 <style scoped>
@@ -40,6 +59,11 @@ export default {
   background-color: #99d196;
 }
 button:active {
-    background-color: #6a9168;
+  background-color: #6a9168;
+}
+button:disabled {
+  background-color: #a0a0a0;
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 </style>
