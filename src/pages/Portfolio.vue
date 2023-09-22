@@ -8,7 +8,7 @@
         </div>
         <div class="card-body">
           <input placeholder="Quantity" />
-          <button>SELL</button>
+          <button @click="sellStock(item)">SELL</button>
         </div>
       </div>
     </div>
@@ -25,6 +25,11 @@ export default {
       return this.$store.state.portfolio;
     },
   },
+  methods: {
+    sellStock(stock) {
+      this.$store.dispatch("sellStock", stock);
+    },
+  }
 };
 </script>
 <style scoped>

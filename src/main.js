@@ -79,7 +79,9 @@ const store = createStore({
         stock.quantity = quantity;
         // Subtract the total cost from the funds
         context.state.funds -= context.state.quantityInput;
-        let newprice =  stock.price ? (stock.price -= context.state.quantityInput) : (stock.price = 0);
+        let newprice = stock.price
+          ? (stock.price -= context.state.quantityInput)
+          : (stock.price = 0);
         if (stock.price === 0) {
           stock.noprice = true;
         }
@@ -92,7 +94,7 @@ const store = createStore({
           let quantity = parseInt(portfolioStock.quantity);
           quantity += parseInt(context.state.quantityInput);
           portfolioStock.quantity = quantity;
-          portfolioStock.price = newprice 
+          portfolioStock.price = newprice;
         } else {
           // If the stock is not in the portfolio, add it
           context.state.portfolio.push({
@@ -104,7 +106,20 @@ const store = createStore({
         }
       }
     },
-  }
+    sellStock(context, payload) {
+      const record = context.state.portfolio.find((el) => el.id === payload.id);
+      if (record.quantity > payload.quantity) {
+        record.quantity -= payload.quantity;
+      } else {
+        context.state.portfolio.splice(
+          context.state.portfolio.indexOf(record),
+          1
+        );
+      }
+      context.state.funds += payload.quantity;
+      
+    },
+  },
 });
 const app = createApp(App);
 app.use(router);
