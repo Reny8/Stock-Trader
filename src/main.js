@@ -55,42 +55,47 @@ const store = createStore({
     };
   },
   mutations: {
-    buyStock(state, payload) {
+    updateQuantity(state, payload) {
+      state.quantityInput = payload;
+    },
+  },
+  actions: {
+    buyStock(context, payload) {
       // Find the stock by its id
-      const stock = state.stocks.find((item) => item.id === payload.id);
+      const stock = context.state.stocks.find((item) => item.id === payload.id);
       if (stock.price === 0) {
         stock.noprice = true;
         return;
       }
       // Check if the user has enough funds to make the purchase
       else if (
-        state.funds > 0 &&
+        context.state.funds > 0 &&
         stock.price > 0 &&
-        state.funds - state.quantityInput > 0
+        context.state.funds - context.state.quantityInput > 0
       ) {
         // Subtract the purchased quantity from the stock
         let quantity = parseInt(stock.quantity);
-        quantity += parseInt(state.quantityInput);
+        quantity += parseInt(context.state.quantityInput);
         stock.quantity = quantity;
         // Subtract the total cost from the funds
-        state.funds -= state.quantityInput;
-        let newprice =  stock.price ? (stock.price -= state.quantityInput) : (stock.price = 0);
+        context.state.funds -= context.state.quantityInput;
+        let newprice =  stock.price ? (stock.price -= context.state.quantityInput) : (stock.price = 0);
         if (stock.price === 0) {
           stock.noprice = true;
         }
         // Add the purchased stock to the portfolio
-        const portfolioStock = state.portfolio.find(
+        const portfolioStock = context.state.portfolio.find(
           (item) => item.id === payload.id
         );
         if (portfolioStock) {
           // If the stock is already in the portfolio, update its quantity
           let quantity = parseInt(portfolioStock.quantity);
-          quantity += parseInt(state.quantityInput);
+          quantity += parseInt(context.state.quantityInput);
           portfolioStock.quantity = quantity;
           portfolioStock.price = newprice 
         } else {
           // If the stock is not in the portfolio, add it
-          state.portfolio.push({
+          context.state.portfolio.push({
             id: stock.id,
             name: stock.name,
             price: newprice,
@@ -99,10 +104,7 @@ const store = createStore({
         }
       }
     },
-    updateQuantity(state, payload) {
-      state.quantityInput = payload;
-    },
-  },
+  }
 });
 const app = createApp(App);
 app.use(router);

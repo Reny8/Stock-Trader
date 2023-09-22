@@ -35,8 +35,8 @@ export default {
   },
   methods: {
     buyStock(stock, index) {
-      this.$store.commit("buyStock", stock);
-      this.inputValue[index] = null;
+      this.$store.dispatch("buyStock", stock);
+      this.inputValue[index] = 0;
     },
     updateQuantityInput(event) {
       this.$store.commit("updateQuantity", event.target.value);
@@ -65,7 +65,7 @@ button:active {
   background-color: #6a9168;
 }
 button:disabled {
-  background-color: #a0a0a0;
+  background-color: #757575;
   opacity: 0.5;
   cursor: not-allowed;
 }
