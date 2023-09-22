@@ -21,6 +21,7 @@ const store = createStore({
     return {
       quantityInput: 0,
       funds: 10000,
+      noFunds: false,
       stocks: [
         {
           id: 1,
@@ -57,13 +58,12 @@ const store = createStore({
   },
   actions: {
     buyStock(context, payload) {
+      context.state.noFunds = false;
       // Find the stock by its id
       const stock = context.state.stocks.find((item) => item.id === payload.id);
       // Check if the user has enough funds to make the purchase
       if (
-        context.state.funds > 0 &&
-        stock.price > 0 &&
-        context.state.funds - context.state.quantityInput > 0
+        context.state.funds > 0 && stock.price * context.state.quantityInput <= context.state.funds
       ) {
         // Subtract the purchased quantity from the stock
         let quantity = parseInt(stock.quantity);
@@ -89,6 +89,9 @@ const store = createStore({
             quantity: parseInt(stock.quantity),
           });
         }
+      }
+      else {
+        context.state.noFunds = true;
       }
     },
     sellStock(context, payload) {
