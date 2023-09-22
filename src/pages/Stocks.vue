@@ -12,7 +12,7 @@
           v-model="inputValue[index]"
           type="number"
         />
-        <button @click="buyStock(stock, index)" :disabled="disableBuy(stock, inputValue[index])">BUY</button>
+        <button @click="buyStock(stock, index)" :disabled="disableBuy(inputValue[index])">BUY</button>
       </div>
     </div>
   </div>
@@ -41,8 +41,8 @@ export default {
     updateQuantityInput(event) {
       this.$store.commit("updateQuantity", event.target.value);
     },
-    disableBuy(stock, input) {
-      return stock.noprice || !Number.isInteger(input) || input <= 0;
+    disableBuy(input) {
+      return !Number.isInteger(input) || input <= 0 ;
     }
   },
 };
@@ -64,9 +64,5 @@ export default {
 button:active {
   background-color: #6a9168;
 }
-button:disabled {
-  background-color: #757575;
-  opacity: 0.5;
-  cursor: not-allowed;
-}
+
 </style>

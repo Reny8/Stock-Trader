@@ -1,14 +1,19 @@
 <template>
   <div>
     <div v-if="portfolio.length" class="container">
-      <div class="card" v-for="item in portfolio" :key="item.id">
+      <div class="card" v-for="(item, index) in portfolio" :key="item.id">
         <div class="heading">
           <h3>{{ item.name }}</h3>
-          <p>( Price: ${{ item.price }} | Quantity: ${{ item.quantity }} )</p>
+          <p>( Price: ${{ item.price }} | Quantity: {{ item.quantity }} )</p>
         </div>
         <div class="card-body">
-          <input placeholder="Quantity" />
-          <button @click="sellStock(item)">SELL</button>
+          <input
+            placeholder="Quantity"
+            type="number"
+            @input="updateQuantityInput"
+            v-model="inputValue[index]"
+          />
+          <button @click="sellStock(item, inputValue[index])" :disabled="disableSell(item, inputValue[index])">SELL</button>
         </div>
       </div>
     </div>
@@ -20,16 +25,30 @@
 <script>
 export default {
   name: "PortfolioPage",
+  data() {
+    return {
+      inputValue: [0, 0, 0, 0],
+    };
+  },
   computed: {
     portfolio() {
       return this.$store.state.portfolio;
     },
+    quantityInput() {
+      return this.$store.state.quantityInput;
+    },
   },
   methods: {
-    sellStock(stock) {
-      this.$store.dispatch("sellStock", stock);
+    sellStock(stock, input) {
+      this.$store.dispatch("sellStock", {stock, input});
     },
-  }
+    updateQuantityInput(event) {
+      this.$store.commit("updateQuantity", event.target.value);
+    },
+    disableSell(item, input) {
+      return !Number.isInteger(input) || input <= 0 || item.quantity < input
+    },
+  },
 };
 </script>
 <style scoped>

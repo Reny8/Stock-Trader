@@ -86,4 +86,9 @@ input:focus {
 input {
   height: 1rem;
 }
+button:disabled {
+  background-color: #757575;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 </style>
