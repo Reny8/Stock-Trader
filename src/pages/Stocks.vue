@@ -12,7 +12,7 @@
           v-model="inputValue[index]"
           type="number"
         />
-        <button @click="buyStock(stock, index)" :disabled="stock.noprice">BUY</button>
+        <button @click="buyStock(stock, index)" :disabled="disableBuy(stock, inputValue[index])">BUY</button>
       </div>
     </div>
   </div>
@@ -22,7 +22,7 @@ export default {
   name: "StocksPage",
   data() {
     return {
-      inputValue: [null, null, null, null],
+      inputValue: [0, 0, 0, 0],
     };
   },
   computed: {
@@ -41,6 +41,9 @@ export default {
     updateQuantityInput(event) {
       this.$store.commit("updateQuantity", event.target.value);
     },
+    disableBuy(stock, input) {
+      return stock.noprice || !Number.isInteger(input) || input <= 0;
+    }
   },
 };
 </script>
