@@ -22,6 +22,7 @@ export default {
 body {
   height: 100%;
   margin: 0rem;
+  background-color: #f5f5f5;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -32,9 +33,10 @@ body {
 h1 {
   font-size: 25px;
 }
-h1, h3 {
+h1,
+h3 {
   text-shadow: 0.5px 0.5px 0.5px black;
-  font-weight: 300
+  font-weight: 300;
 }
 .container {
   padding: 0.5rem 0rem;
@@ -46,19 +48,21 @@ h1, h3 {
   justify-content: space-between;
 }
 button:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
-.card input, .card button {
-    padding: 0.5rem;
+.card input,
+.card button {
+  padding: 0.5rem;
 }
 .card p {
-    font-size: 0.8rem;
-    font-style: italic
+  font-size: 0.8rem;
+  font-style: italic;
 }
 .card {
-  border: solid 0.5px #a0a0a0;
   width: 35rem;
   border-radius: 2px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 1px -1px,
+    rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
 }
 .card .heading {
   display: flex;
@@ -72,13 +76,16 @@ button:hover {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  background-color: white;
 }
 .card button {
   color: white;
-  border: solid 0.5px #a0a0a0;
   border-radius: 2px;
+  border:none;
   text-shadow: 0.5px 0.5px 0.5px black;
-  width: 5rem
+  width: 5rem;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 1px -1px,
+    rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
 }
 input:focus {
   outline: none;
@@ -90,5 +97,6 @@ button:disabled {
   background-color: #757575;
   opacity: 0.5;
   cursor: not-allowed;
+  box-shadow: none;
 }
 </style>

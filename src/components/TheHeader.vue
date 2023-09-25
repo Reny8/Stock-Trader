@@ -35,15 +35,16 @@ export default {
 <style scoped>
 header {
   color: #5c5c5c;
-  background-color: #f5f5f5;
+  background-color: white;
   display: flex;
   flex-direction: row;
   padding: 0.5rem 1.5rem;
   margin: 2rem;
   border-radius: 2px;
-  border: solid 1px #7d7d7d;
   align-items: center;
   justify-content: space-between;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 1px -1px,
+    rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
 }
 div {
   display: flex;
