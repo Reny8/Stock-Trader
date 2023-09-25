@@ -1,6 +1,6 @@
 <template>
   <TheHeader title="Stock Trader" />
-  <router-view></router-view>
+  <transition name="slide" mode="out-in"> <router-view></router-view></transition>
 </template>
 
 <script>
@@ -81,7 +81,7 @@ button:hover {
 .card button {
   color: white;
   border-radius: 2px;
-  border:none;
+  border: none;
   text-shadow: 0.5px 0.5px 0.5px black;
   width: 5rem;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 1px -1px,
@@ -98,5 +98,31 @@ button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
   box-shadow: none;
+}
+.slide-enter-active {
+  animation: slide-in 200ms ease-in-out;
+}
+.slide-leave-active {
+animation: slide-out 200ms ease-in-out;
+}
+@keyframes slide-in {
+  from {
+    transform: translateY(-30px);
+    opacity: 0
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1
+  }
+}
+@keyframes slide-out {
+  from {
+    transform: translateY(0);
+    opacity: 1
+  }
+  to {
+    transform: translateY(-30px);
+    opacity: 0
+  }
 }
 </style>
