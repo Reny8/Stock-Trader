@@ -53,33 +53,24 @@ const store = createStore({
   },
   mutations: {
     updateQuantity(state, payload) {
-      state.quantityInput = payload;
+      state.quantityInput = parseInt(payload)
     },
   },
   actions: {
     buyStock(context, payload) {
       context.state.noFunds = false;
-      // Find the stock by its id
       const stock = context.state.stocks.find((item) => item.id === payload.id);
-      // Check if the user has enough funds to make the purchase
       if (
         context.state.funds > 0 && stock.price * context.state.quantityInput <= context.state.funds
       ) {
-        // Subtract the purchased quantity from the stock
-        let quantity = parseInt(stock.quantity);
-        quantity += parseInt(context.state.quantityInput);
-        stock.quantity = quantity;
-        // Subtract the total cost from the funds
+        stock.quantity += context.state.quantityInput
         context.state.funds -= stock.price * context.state.quantityInput;
-        // Add the purchased stock to the portfolio
         const portfolioStock = context.state.portfolio.find(
           (item) => item.id === payload.id
         );
         if (portfolioStock) {
           // If the stock is already in the portfolio, update its quantity
-          let quantity = parseInt(portfolioStock.quantity);
-          quantity += parseInt(context.state.quantityInput);
-          portfolioStock.quantity = quantity;
+          portfolioStock.quantity += context.state.quantityInput;
         } else {
           // If the stock is not in the portfolio, add it
           context.state.portfolio.push({
