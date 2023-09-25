@@ -8,7 +8,7 @@
       <router-link to="/stocks">Stocks</router-link>
     </div>
     <div class="second">
-      <button>End Day</button>
+      <button @click="endDay">End Day</button>
       <select>
         <option selected disabled hidden>Save &amp; Load</option>
         <option value="save">Save Data</option>
@@ -29,6 +29,11 @@ export default {
       return numeral(this.$store.state.funds).format("0,0");
     },
   },
+  methods: {
+    endDay() {
+      this.$store.dispatch("randomizeStocks");
+    }
+  }
 };
 </script>
 

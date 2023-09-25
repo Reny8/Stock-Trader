@@ -53,7 +53,7 @@ const store = createStore({
   },
   mutations: {
     updateQuantity(state, payload) {
-      state.quantityInput = parseInt(payload)
+      state.quantityInput = parseInt(payload);
     },
   },
   actions: {
@@ -61,9 +61,10 @@ const store = createStore({
       context.state.noFunds = false;
       const stock = context.state.stocks.find((item) => item.id === payload.id);
       if (
-        context.state.funds > 0 && stock.price * context.state.quantityInput <= context.state.funds
+        context.state.funds > 0 &&
+        stock.price * context.state.quantityInput <= context.state.funds
       ) {
-        stock.quantity += context.state.quantityInput
+        stock.quantity += context.state.quantityInput;
         context.state.funds -= stock.price * context.state.quantityInput;
         const portfolioStock = context.state.portfolio.find(
           (item) => item.id === payload.id
@@ -80,8 +81,7 @@ const store = createStore({
             quantity: parseInt(stock.quantity),
           });
         }
-      }
-      else {
+      } else {
         context.state.noFunds = true;
       }
     },
@@ -98,6 +98,20 @@ const store = createStore({
         );
       }
       context.state.funds += payload.stock.price * payload.input;
+    },
+    randomizeStocks(context) {
+      let stockPrices = {}
+      context.state.stocks.forEach((stock) => {
+        let value = Math.round(stock.price * (1 + Math.random() - 0.5));
+        stockPrices[stock.id] = value
+        stock.price = value
+      })
+
+    context.state.portfolio.forEach((stock) => {
+      if (stock.id in stockPrices) {
+        stock.price = stockPrices[stock.id]
+      }
+    })
     },
   },
 });
